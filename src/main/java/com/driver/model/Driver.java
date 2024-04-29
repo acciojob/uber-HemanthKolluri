@@ -5,25 +5,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "driver")
 public class Driver {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int driverId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer driverId;
+
     private String mobile;
+
     private String password;
-    @OneToOne(mappedBy = "driver",cascade = CascadeType.ALL)
-    Cab cab;
-    @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
     private List<TripBooking> tripBookingList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
+    private Cab cab;
+
+    public Driver(String mobile, String password) {
+        this.mobile = mobile;
+        this.password = password;
+    }
 
     public Driver() {
     }
 
-    public int getDriverId() {
+    public Integer getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(int driverId) {
+    public void setDriverId(Integer driverId) {
         this.driverId = driverId;
     }
 
@@ -43,19 +53,19 @@ public class Driver {
         this.password = password;
     }
 
-    public Cab getCab() {
-        return cab;
-    }
-
-    public void setCab(Cab cab) {
-        this.cab = cab;
-    }
-
     public List<TripBooking> getTripBookingList() {
         return tripBookingList;
     }
 
     public void setTripBookingList(List<TripBooking> tripBookingList) {
         this.tripBookingList = tripBookingList;
+    }
+
+    public Cab getCab() {
+        return cab;
+    }
+
+    public void setCab(Cab cab) {
+        this.cab = cab;
     }
 }
